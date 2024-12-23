@@ -3,7 +3,7 @@
     <el-header class="homeHeader">
       <div class="title">
         <img src="@/assets/logo.png" alt="校徽" class="school-logo">
-        宿舍管理系统
+        宿舍管理系统 
       </div>
       <div>
         <el-dropdown class="profile" @command="commandHandler">
