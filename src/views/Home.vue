@@ -1,7 +1,10 @@
 <template>
   <el-container>
     <el-header class="homeHeader">
-      <div class="title">广软宿舍管理系统</div>
+      <div class="title">
+        <img src="@/assets/logo.png" alt="校徽" class="school-logo">
+        宿舍管理系统
+      </div>
       <div>
         <el-dropdown class="profile" @command="commandHandler">
           <span class="el-dropdown-link">
@@ -137,6 +140,13 @@ export default {
   font-size: 30px;
   font-family: 华文行楷;
   color: #ffffff;
+  display: flex;
+  align-items: center;
+}
+
+.school-logo {
+  height: 40px;
+  margin-right: 10px;
 }
 
 .homeHeader .profile {
