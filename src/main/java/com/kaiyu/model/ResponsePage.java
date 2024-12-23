@@ -13,4 +13,12 @@ public class ResponsePage {
 
     private List<?> data;
     private Long total;
+    private Integer pageSize;
+
+    public Integer getTotalPages() {
+        if (total == null || pageSize == null || pageSize <= 0) {
+            return 0;
+        }
+        return (int) Math.ceil((double) total / pageSize);
+    }
 }

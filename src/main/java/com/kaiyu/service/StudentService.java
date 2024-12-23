@@ -31,6 +31,7 @@ public class StudentService {
         ResponsePage responsePage = new ResponsePage();
         responsePage.setData(students);
         responsePage.setTotal(pageInfo.getTotal());
+        responsePage.setPageSize(size);
         return responsePage;
     }
 
