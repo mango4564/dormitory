@@ -1,6 +1,7 @@
 server:
   port: 8081
-
+test:
+  mode: false
 spring:
   application:
     name: DormAdmin
