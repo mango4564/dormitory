@@ -27,6 +27,9 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Autowired
     SessionRegistry sessionRegistry;
 
+    @Autowired
+    private TestModeConfig testModeConfig;
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         if (!"POST".equals(request.getMethod())) {
@@ -68,8 +71,16 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     public void checkCode(String code, String verifyCode) {
+        if (testModeConfig.isTestMode()) {
+            // 测试模式下，验证码固定为1234
+            if (!"1234".equals(code)) {
+                throw new AuthenticationServiceException("验证码不正确");
+            }
+            return;
+        }
+        
+        // 正常模式的验证码校验
         if (code == null || verifyCode == null || "".equals(code) || !verifyCode.equalsIgnoreCase(code)) {
-            //验证码不正确
             throw new AuthenticationServiceException("验证码不正确");
         }
     }

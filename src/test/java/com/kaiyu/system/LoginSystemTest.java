@@ -66,8 +66,11 @@ public class LoginSystemTest {
         WebElement passwordInput = driver.findElement(By.cssSelector("input[placeholder='请输入密码']"));
         passwordInput.sendKeys("123456");
         
+        // 在测试环境中，建议后端配置测试模式：
+        // 1. 在application-test.properties中设置test.mode=true
+        // 2. 在验证码校验逻辑中，如果是测试模式，则固定验证码为1234
         WebElement codeInput = driver.findElement(By.cssSelector("input[placeholder='点击图片更换验证码']"));
-        codeInput.sendKeys("1234"); // 注意：实际验证码需要从图片中识别
+        codeInput.sendKeys("1234");
         
         // 点击登录按钮
         WebElement loginButton = driver.findElement(By.cssSelector("button.el-button--primary"));

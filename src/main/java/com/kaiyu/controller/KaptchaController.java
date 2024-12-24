@@ -2,6 +2,7 @@ package com.kaiyu.controller;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
+import com.kaiyu.config.TestModeConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,9 @@ public class KaptchaController {
     @Autowired
     private Producer captchaProducer;
 
+    @Autowired
+    private TestModeConfig testModeConfig;
+
     @GetMapping("/verifyCode")
     public void getVerifyCode(HttpServletRequest request, HttpServletResponse response)throws Exception{
         HttpSession session = request.getSession();
@@ -35,10 +39,17 @@ public class KaptchaController {
         response.addHeader("Cache-Control", "post-check=0, pre-check=0");
         response.setHeader("Pragma", "no-cache");
         response.setContentType("image/jpeg");
-        //生成验证码
-        String capText = captchaProducer.createText();
-        log.info("新生成的验证码：{}",capText);
+        
+        //生���验证码
+        String capText;
+        if (testModeConfig.isTestMode()) {
+            capText = "1234";
+        } else {
+            capText = captchaProducer.createText();
+        }
+        log.info("新生成的验证码：{}", capText);
         session.setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
+        
         //向客户端写出
         BufferedImage bi = captchaProducer.createImage(capText);
         ServletOutputStream out = response.getOutputStream();
